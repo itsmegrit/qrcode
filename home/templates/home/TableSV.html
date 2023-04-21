@@ -1,0 +1,15 @@
+
+{% extends 'home/QuanLySinhVien.html' %}
+{% block content %}
+ 
+    {% for sinhvien in sv %}
+     
+        <tr class = 'table-row-1'>
+            <th class ='msv'>{{ sinhvien.masinhvien }}</th>
+            <th class ='hoten'>{{ sinhvien.tensinhvien }}</th> 
+            <th class ='khoa'>{{ sinhvien.khoa }}</th> 
+            <th class ='qr'>Xem</th>  
+        </tr>
+        
+    {% endfor %}
+{% endblock content %}

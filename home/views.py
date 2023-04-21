@@ -5,18 +5,14 @@ import pymongo
 
 
 def index(request):
-    return render(request, 'pages/home.html')
+    client = pymongo.MongoClient(
+        'mongodb+srv://ngtphongg:25251325@cluster0.yrdmc9z.mongodb.net/test')
+    # Define DB Name
+    dbname = client['managediemdanh']
 
+    # Define Collection
+    collection = dbname['sinhvien']
 
-client = pymongo.MongoClient(
-    'mongodb+srv://ngtphongg:25251325@cluster0.yrdmc9z.mongodb.net/test')
-# Define DB Name
-dbname = client['managediemdanh']
+    sv = list(collection.find())
 
-# Define Collection
-collection = dbname['sinhvien']
-
-sinhvien = collection.find({})
-
-for r in sinhvien:
-    print(r['tensinhvien'])
+    return render(request, 'home/TableSV.html', {'sv': sv})

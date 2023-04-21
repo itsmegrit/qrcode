@@ -1,0 +1,303 @@
+<!DOCTYPE html>
+<html>
+<head>
+    {% load static %}
+    <meta charset='utf-8'>
+    <meta http-equiv='X-UA-Compatible' content='IE=edge'>
+    <title>Quản lý sinh viên</title>
+    <meta name='viewport' content='width=device-width, initial-scale=1'>
+    <link rel='stylesheet' type='text/css' media='screen' href='main.css'>
+    <link rel='stylesheet' href="{% static 'home/style.css' %}">
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <script src="https://kit.fontawesome.com/8f58aae133.js" crossorigin="anonymous"></script>
+    <script src='main.js'></script>
+    <style>
+        .wrap{
+            width: 100%;
+            height: 100%;
+            opacity:0.8;
+            position:fixed;
+            width:100%;
+            height:100%;
+            top:0px;
+            left:0px;
+            z-index:1000;
+        }        
+        #header{
+            width: 100%;
+            height: 6.5%;
+            min-height: 40px;
+            float:left;
+            border-bottom:2px solid black;
+            position: relative;
+            
+        }
+        .left_icon{
+            width:auto;
+            height:100%;
+            top:0px;
+            left:0px;   
+            position:absolute;  
+            left:10px;  
+        }
+        
+        .right_icon{
+            width: auto;
+            height: 100%;
+            position:absolute;   
+            right:10px;
+        }
+        .right_icon .far{
+            width: auto;
+            height: auto;
+            font-size: 20px;
+            float: left;
+            margin-top:10px;
+            cursor: pointer;
+            padding-left: 15px;
+            padding-right: 15px;
+        }
+        .right_icon .far:hover{
+            content: "\f05d";
+            color: black;
+            transform: scale(1.4);
+            transition-duration: 0.7s;
+            opacity: 0.4;
+        }
+      
+        #body{
+            width: 100%;
+            height: 80%;
+            float:left
+        }
+
+        .left-menu{
+            float:left;
+            width: 15%;
+            height: 100%;
+            position: relative;
+
+        }
+        .left-menu-ul{
+            position: absolute;
+            list-style-type: none;
+            left:-40px;
+        }
+  
+        .left-menu-li{      
+            margin-top:60px;     
+            font-size: 18px;
+            text-align: center;
+            color: black;
+            opacity: 0.4; 
+            cursor:pointer;      
+        }
+        .left-menu-li-selected{
+            margin-top:60px;     
+            font-size: 18px;
+            text-align: center;
+            color: black;
+            border-bottom: 2.5px solid #D4550EF0;
+        }
+
+        .right-content{
+            float:left;
+            width:80%;
+            height:100%;
+            margin-left: 25px;
+            position: relative;
+        }
+
+        .search-bar{
+            position: absolute;
+            top:30px;
+            
+        }
+
+        .search-bar input{
+            width:200px;
+            height: 35px;
+            text-align: center;
+            font-size: 13px;
+            float:left;
+        }
+        
+        .search-bar i{
+            font-size: 20px;
+            margin-left: 5px;
+            height:35px;
+            display: block;
+            margin-top:7px;
+            padding-left:5px;
+            float:left;
+            cursor:pointer
+        }
+
+        .search-bar i:hover{
+            content: "\f05d";
+            color: #4169E1;
+            transform: scale(1.2);
+            transition-duration: 0.7s;
+            
+        }
+
+        .add-student-btn{
+            
+            position: absolute;
+            right:10px;
+            top:33px;
+            display:block;
+            cursor: pointer;
+        }
+        .add-student-btn:hover{
+            color: #228B22;
+            transform: scale(1.1);
+            transition-duration: 0.7s;
+        }
+        
+        .add-student-btn i{
+            float:left;
+            display:block;
+            margin-top:5px;
+        }
+        .add-student-btn div{
+            float:left;
+            margin-left:10px;
+            font-size:18px;
+        }
+
+        .right-content table{
+            width:100%;
+            position:absolute;
+            top:100px;
+            border-collapse: separate;
+            
+        }
+        
+        .right-content table .table-header{
+            font-size:x-large;
+            width:100%;     
+            border-top: 20px solid transparent;
+            border-bottom: 20px solid transparent;
+            
+        }
+
+        .right-content table .table-row-1{
+            padding-top:100px;
+            height: 60px;
+            font-size: 18px;
+            background-color: #CFCFCF;
+            
+        }
+
+        .right-content table .table-row-2{
+            margin-top:20px;
+            height: 60px;
+            font-size: 18px;
+        }
+
+        .right-content .msv{
+            width: 15%;
+            text-align: center;
+        }
+
+        .right-content  .hoten{
+            padding-left: 15%;
+            width:50%;
+        }
+
+        .right-content .khoa{
+            padding-left:2.5%;
+            width:10%;
+            text-align: center;
+        }
+
+        .right-content .qr{
+            width:7.5%;
+            padding-left:2.5%;
+            text-align: center;
+        }
+        
+        .right-content .table-row-1 .qr, .table-row-2 .qr{
+            cursor: pointer;
+            text-decoration: underline;
+        }
+        .right-content .table-row-1 .qr:hover, .table-row-2 .qr:hover{
+            transform: scale(1.1);
+            transition-duration: 0.7s;
+        }
+        #footer{
+            width: 100%;
+            height: 10%;
+            float:left;
+            clear:both
+        }
+        
+        
+    </style>
+</head>
+<body>
+    <div class = 'wrap'>
+        <div class ='header' id = 'header'>
+            <div class = 'left_icon'>
+    
+            </div>
+           
+            <div class = 'right_icon'>
+                <i class="far fa-bell"></i>
+                <i class="far fa-comment"></i>
+                <i class="far fa-user"></i>
+            </div>
+        </div>
+        <div class = 'body' id = 'body'>
+            <div class = 'left-menu'>
+                <ul class ='left-menu-ul'>
+                    <li class ='left-menu-li-selected'> Quản lý sinh viên</li>   
+                    <li class ='left-menu-li'> Quản lý theo học kì</li>
+                    <li class ='left-menu-li'> Quản lý môn học</li>
+                    <li class ='left-menu-li'> Quản lý lớp học</li> 
+                </ul>
+            </div>
+            <div class = 'right-content'>
+                <div>
+                    <div class ='search-bar'>
+                        <input placeholder="Thông tin sinh viên" class="search-input">
+                        <i class="fas fa-search"></i>
+                    </div>
+                    <div class ='add-student-btn'>
+                        <i class="fas fa-user-plus"></i>
+                        <div class ='add-student'> Thêm sinh viên </div>
+                    </div>
+                </div>
+                <div class = 'table'>
+                    <table>
+                       <tr class = 'table-header'>
+                            <th class ='msv'>Mã sinh viên</th>
+                            <th class ='hoten'>Tên sinh viên</th> 
+                            <th class ='khoa'>Khoa</th> 
+                            <th class ='qr'>Mã QR</th>    
+                        </tr>
+                        <!-- <tr class = 'table-row-1'>
+                            <th class ='msv'>3120410442</th>
+                            <th class ='hoten'>Lâm Chí Quốc</th> 
+                            <th class ='khoa'>CNTT</th> 
+                            <th class ='qr'>Xem</th>  
+                        </tr>
+                        <tr class = 'table-row-2'>
+                            <th class ='msv'>3120410442</th>
+                            <th class ='hoten'>Lâm Chí Quốc</th> 
+                            <th class ='khoa'>CNTT</th> 
+                            <th class ='qr'>Xem</th>  
+                        </tr -->
+                        {% block content %}
+                        {% endblock content %}
+                    </table>
+                </div>
+            </div>
+        </div>
+        <div class = 'footer' id = 'footer'>
+
+        </div>
+</body>
+</html>
