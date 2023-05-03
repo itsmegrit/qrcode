@@ -301,10 +301,10 @@ def returnSVList():
     return sv
 
 
-def returnSVList():
-    collection = connect('sinhvien')
-    sv = list(collection.find({}))
-    return sv
+def returnGVList():
+    collection = connectDB('GiangVien')
+    gv = list(collection.find({}))
+    return gv
 
 
 def TableSV(request):
@@ -323,8 +323,33 @@ def QLMonHoc(request):
     return render(request, "home/QLMonHoc.html", {"sv": returnSVList()})
 
 
+def returnNewMHH():
+    collection = connectDB('NhomMH')
+    return collection.find({}).sort({"maNMH": -1}).limit(1).first() + 1
+
+
+def addNhomLop(tenMH, tenGV, hocKy, namHoc):
+    collection = connectDB('NhomMH')
+    try:
+        collection.insert_one(
+            {"tenMH": tenMH, "tenGV": tenGV, "danhSachSV": [{"MSSV": "3120410396", "tenSV": "Nguyễn Thanh Phong"}, {"MSSV": "3120410542", "tenSV": "Trần Minh Toàn"}], "hocKy": hocKy, "namHoc": namHoc, "maNMH": returnNewMHH()})
+        return True
+    except:
+        print("Bug 1")
+        return False
+
+
 def themNhomLop(request):
-    return render(request, 'home/AddNhomLop.html', {"mh": returnMHList()})
+    tenMH = request.POST.get('subject-select')
+    namHoc = request.POST.get('year-entry')
+    hocKy = request.POST.get('semester-select')
+    tenGV = request.POST.get('teacher-select')
+
+    if addNhomLop(tenMH, tenGV, hocKy, namHoc) == True:
+        print("added")
+    else:
+        print("not added")
+    return render(request, "home/AddNhomLop.html", {"nmh": returnNMHList(), "gv": returnGVList(), "mh": returnMHList()})
 
 
 def NMH_DSSV(request, NMH):
