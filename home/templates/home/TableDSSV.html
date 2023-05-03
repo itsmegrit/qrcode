@@ -1,0 +1,30 @@
+
+{% extends 'home/QuanLySinhVien.html' %}
+{% block content %}
+
+<table>
+    <tr class = 'table-header'>
+         <th class ='msv'>Mã sinh viên</th>
+         <th class ='hoten'>Tên sinh viên</th> 
+         <th class ='khoa'>Khoa</th>
+         <th class ='diemdanh'>Điểm danh</th>
+         <th class ='qr'>Mã QR</th> 
+     </tr>
+    {% for doc in result %}
+     <tr class = 'table-row-1'>
+         <th class ='msv'>{{ doc.SV.masinhvien }}</th>
+         <th class ='hoten'>{{ doc.SV.tensinhvien }}</th> 
+         <th class ='khoa'>{{ doc.SV.khoa }}</th>
+        {% if doc.diemdanh == '0' %}
+        {% load static %}
+            <th class ='diemdanh'><img src="{% static 'images/cancel.png' %}"></th>
+        {% else %}
+        {% load static %}
+            <th class ='diemdanh'><img src="{% static 'images/yes.png' %}"></th>
+        {% endif %}  
+         <th class ='qr'>Xem</th>  
+     </tr>
+ {% endfor %}
+ </table>
+    
+{% endblock content %}

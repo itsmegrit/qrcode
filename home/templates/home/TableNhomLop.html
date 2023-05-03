@@ -1,0 +1,25 @@
+
+{% extends 'home/QuanLySinhVien.html' %}
+{% block content %}
+<table >
+    <tr class = 'table-header'>
+         <th class =''>Tên Nhóm</th>
+         <th class ='hocki'>Học Kì</th> 
+         <th class ='ngaybatdau'>Ngày bắt đầu</th>
+         <th class ='ngayketthuc'>Ngày kết thúc</th> 
+         <th class ='ds'>DSSV</th>
+         <th class ='diemdanh'>Điểm Danh</th>        
+     </tr>
+     {% for doc in result %}
+     <tr class = 'table-row-1'>
+        <th class ='tennhom'>{{doc.Nhom.tennhom }}</th>
+        <th class ='hocki'>{{doc.Nhom.hocki }}</th> 
+        <th class ='ngaybatdau'>{{doc.Nhom.ngaybatdau }}</th>
+        <th class ='ngayketthuc'>{{doc.Nhom.ngaykethuc }}</th> 
+        <th class ='ds'><a href="/monhoc/{{doc.Nhom.manhomlop}}">Xem</a></th> 
+        <th class ='diemdanh'><a href="/diemdanh/{{doc.Nhom.manhomlop}}">Điểm Danh</a></th> 
+     </tr>
+     
+ {% endfor %}
+ </table>
+{% endblock content %}

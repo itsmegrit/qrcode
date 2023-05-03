@@ -1,0 +1,34 @@
+{% extends 'home/QuanLySinhVien.html' %} {% block content %}
+
+<div class="form">
+  <form action="" method="post">
+    {% csrf_token %}
+    <p>Nhập thông tin sinh viên</p>
+    <div><label for="msv-entry"> Mã sinh viên: </label><input name="msv-entry" id="msv-entry" class="msv-entry" maxlength="10" minlength="10" required /></div>
+    <div><label for="name-entry"> Họ và tên: </label><input name="name-entry" id="name-entry" class="name-entry" maxlength="100" required /></div>
+    <div>
+      <label for="faculty-select"> Khoa: </label
+      ><select name="faculty-select" id="faculty-select">
+        <option value="CNTT">Công nghệ thông tin</option>
+        <option value="KTPM">Kỹ thuật phần mềm</option>
+        <option value="CNTT2">Công nghệ thông tin CLC</option>
+      </select>
+    </div>
+    <div><input type="submit" value="Thêm" /></div>
+  </form>
+</div>
+{% for sinhvien in sv %} {% if forloop.counter|divisibleby:2 %}
+<tr class="table-row-1">
+  <th class="msv">{{ sinhvien.masinhvien }}</th>
+  <th class="hoten">{{ sinhvien.tensinhvien }}</th>
+  <th class="khoa">{{ sinhvien.khoa }}</th>
+  <th class="qr">Xem</th>
+</tr>
+{% else %}
+<tr class="table-row-2">
+  <th class="msv">{{ sinhvien.masinhvien }}</th>
+  <th class="hoten">{{ sinhvien.tensinhvien }}</th>
+  <th class="khoa">{{ sinhvien.khoa }}</th>
+  <th class="qr">Xem</th>
+</tr>
+{% endif %} {% endfor %} {% endblock content %}

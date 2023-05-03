@@ -1,0 +1,18 @@
+
+{% extends 'home/QuanLySinhVien.html' %}
+{% block content %}
+<table >
+    <tr class = 'table-header'>
+         <th class ='tenmonhoc'>Tên môn học</th>
+         <th class ='tengiangvien'>Tên giảng viên</th> 
+         <th class ='dslop'>Danh sách Nhóm</th>     
+    </tr>
+     {% for doc in result %}
+    <tr class = 'table-row-1'>
+         <th class ='tenmonhoc'>{{doc.tenMonHoc.tenmonhoc}}</th>
+         <th class ='tengiangvien'>{{ doc.tenGV.tengv }}</th> 
+         <th class ='dslop'><a href="{{doc.tenMonHoc.mamonhoc}}">Xem</a></th>  
+     </tr>
+ {% endfor %}
+ </table>
+{% endblock content %}

@@ -11,8 +11,11 @@
     <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
     <script src="https://kit.fontawesome.com/8f58aae133.js" crossorigin="anonymous"></script>
-    <script src='main.js'></script>
-    <style>
+      
+    </script>
+        <style>
+        html,body{overflow-y:scroll;
+            overflow-x:hidden;}
         .wrap{
             width: 100%;
             height: 100%;
@@ -23,6 +26,7 @@
             top:0px;
             left:0px;
             z-index:1000;
+            overflow-y:scroll;
         }        
         #header{
             width: 100%;
@@ -68,7 +72,8 @@
       
         #body{
             width: 100%;
-            height: 80%;
+            height: 100%;
+            overflow-y:scroll;
             float:left
         }
 
@@ -106,13 +111,17 @@
             width:80%;
             height:100%;
             margin-left: 25px;
-            position: relative;
+            
         }
-
+        .search-add{
+            width:100%;
+            display:block;
+            float:left;
+            position:relative;
+        }
         .search-bar{
             position: absolute;
             top:30px;
-            
         }
 
         .search-bar input{
@@ -143,13 +152,13 @@
         }
 
         .add-student-btn{
-            
             position: absolute;
             right:10px;
             top:33px;
             display:block;
             cursor: pointer;
         }
+
         .add-student-btn:hover{
             color: #228B22;
             transform: scale(1.1);
@@ -161,18 +170,23 @@
             display:block;
             margin-top:5px;
         }
+
         .add-student-btn div{
             float:left;
             margin-left:10px;
             font-size:18px;
         }
+        
+        .right-content .form{
+            padding-top:100px;
+        }
 
         .right-content table{
             width:100%;
-            position:absolute;
-            top:100px;
+            height:100%;
+            float:left;
             border-collapse: separate;
-            
+            padding-top:10px;  
         }
         
         .right-content table .table-header{
@@ -233,67 +247,34 @@
             float:left;
             clear:both
         }
-        
-        
     </style>
 </head>
 <body>
     <div class = 'wrap'>
         <div class ='header' id = 'header'>
             <div class = 'left_icon'>
-    
-            </div>
-           
-            <div class = 'right_icon'>
-                <i class="far fa-bell"></i>
-                <i class="far fa-comment"></i>
-                <i class="far fa-user"></i>
             </div>
         </div>
         <div class = 'body' id = 'body'>
             <div class = 'left-menu'>
                 <ul class ='left-menu-ul'>
-                    <li class ='left-menu-li-selected'> Quản lý sinh viên</li>   
-                    <li class ='left-menu-li'> Quản lý theo học kì</li>
-                    <li class ='left-menu-li'> Quản lý môn học</li>
-                    <li class ='left-menu-li'> Quản lý lớp học</li> 
+                    <li class ='left-menu-li'>
+                      <a href='/home/nhomLop'>Quản lý nhóm lớp theo học kỳ</a>
+                    </li>   
+                    <li class ='left-menu-li'>
+                      <a href='/home/TableSV'>Quản lý sinh viên</a>
+                    </li>
+                    <li class ='left-menu-li'>
+                      <a href='/home/TableGV'>
+                        quản lý giảng viên
+                      </a>
+                    </li> 
                 </ul>
             </div>
             <div class = 'right-content'>
-                <div>
-                    <div class ='search-bar'>
-                        <input placeholder="Thông tin sinh viên" class="search-input">
-                        <i class="fas fa-search"></i>
-                    </div>
-                    <div class ='add-student-btn'>
-                        <i class="fas fa-user-plus"></i>
-                        <div class ='add-student'> Thêm sinh viên </div>
-                    </div>
-                </div>
-                <div class = 'table'>
-                    <table>
-                       <tr class = 'table-header'>
-                            <th class ='msv'>Mã sinh viên</th>
-                            <th class ='hoten'>Tên sinh viên</th> 
-                            <th class ='khoa'>Khoa</th> 
-                            <th class ='qr'>Mã QR</th>    
-                        </tr>
-                        <!-- <tr class = 'table-row-1'>
-                            <th class ='msv'>3120410442</th>
-                            <th class ='hoten'>Lâm Chí Quốc</th> 
-                            <th class ='khoa'>CNTT</th> 
-                            <th class ='qr'>Xem</th>  
-                        </tr>
-                        <tr class = 'table-row-2'>
-                            <th class ='msv'>3120410442</th>
-                            <th class ='hoten'>Lâm Chí Quốc</th> 
-                            <th class ='khoa'>CNTT</th> 
-                            <th class ='qr'>Xem</th>  
-                        </tr -->
-                        {% block content %}
-                        {% endblock content %}
-                    </table>
-                </div>
+                
+              {% block content %}
+              {% endblock content %}
             </div>
         </div>
         <div class = 'footer' id = 'footer'>

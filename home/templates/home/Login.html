@@ -1,0 +1,76 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <title>Đăng nhập</title>
+    <link rel="stylesheet" type="text/css" href="style.css">
+	<style>	
+	.login-container {
+  width: 400px;
+  margin: 0 auto;
+  background: #fff;
+  border-radius: 10px;
+  padding: 20px;
+  box-shadow: 0 0 10px rgba(0, 0, 0, 0.2);
+}
+
+.login-container h2 {
+  text-align: center;
+  margin-top: 0;
+}
+
+.input-group {
+  margin-bottom: 10px;
+}
+
+.input-group label {
+  display: block;
+  font-size: 14px;
+  font-weight: bold;
+  margin-bottom: 5px;
+}
+
+.input-group input[type="text"],
+.input-group input[type="password"] {
+  width: 100%;
+  padding: 10px;
+  border-radius: 5px;
+  border: 1px solid #ccc;
+}
+
+.btn {
+  display: block;
+  background: #4CAF50;
+  color: #fff;
+  border: none;
+  border-radius: 5px;
+  padding: 10px;
+  width: 100%;
+  cursor: pointer;
+}
+
+.btn:hover {
+  background: #3e8e41;
+}
+
+	</style>
+  </head>
+  <body>
+    <div class="login-container">
+      <h2>Đăng nhập</h2>
+      <form action="/login/" method="post">
+        {% csrf_token %}
+        <div class="input-group">
+          <label>Tên đăng nhập:</label>
+          <input type="text" name="username" required>
+        </div>
+        <div class="input-group">
+          <label>Mật khẩu:</label>
+          <input type="password" name="password" required>
+        </div>
+        <div class="input-group">
+          <button type="submit" class="btn">Đăng nhập</button>
+        </div>
+      </form>
+    </div>
+  </body>
+</html>

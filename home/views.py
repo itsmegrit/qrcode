@@ -1,18 +1,283 @@
-from django.shortcuts import render
+from imaplib import _Authenticator
+from django.shortcuts import render, redirect, get_object_or_404
 from django.http import HttpResponse
+from django.views import View
 import pymongo
+from django.http import JsonResponse
+from pymongo import MongoClient
+import cv2 as cv
+from pyzbar import pyzbar
+
 # Create your views here.
+client = pymongo.MongoClient(
+    'mongodb+srv://ngtphongg:25251325@cluster0.yrdmc9z.mongodb.net/test')
+dbname = client['QLSV']
+
+# def Left_Menu(request):
+#     NamHoc=dbname['NamHoc']
+#     nam = list(NamHoc.find())
+#     return render(request, 'home/LeftMenu.html', {'nam': nam})
+
+# def ManageMonHoc(request):
+
+#     GiangVien = dbname['GiangVien']
+#     DkMonHoc = dbname['DKMonHoc']
+#     MonHoc = dbname['MonHoc']
+
+#         # Kết hợp bảng customers và orders
+#     result = DkMonHoc.aggregate([
+#     {
+#         '$lookup':
+#             {
+#                 'from': 'GiangVien',
+#                 'localField': 'magv',
+#                 'foreignField': 'magv',
+#                 'as': 'tenGV'
+#             }
+#     },
+#     {
+#         '$lookup':
+#             {
+#                 'from': 'MonHoc',
+#                 'localField': 'mamonhoc',
+#                 'foreignField': 'mamonhoc',
+#                 'as': 'tenMonHoc'
+#             }
+#     },
+#     {    '$unwind': '$tenGV',
+#     },
+#     {
+#         '$unwind':'$tenMonHoc',
+#     }
+# ])
+#     return render(request, 'home/TableMonHoc.html',{'result':result})
 
 
-def index(request):
+def DanhSachNhomLop(request, maMH):
+
+    ma = maMH
+
+    GiangDay = dbname['GiangDay1']
+    NhomLop = dbname['NhomLop']
+    MonHoc = dbname['MonHoc']
+
+    # Kết hợp bảng customers và orders
+    result = GiangDay.aggregate([
+        {
+            '$lookup':
+            {
+                'from': 'NhomLop',
+                'localField': 'manhomlop',
+                'foreignField': 'manhomlop',
+                'as': 'Nhom'
+            }
+        },
+        {
+            '$lookup':
+            {
+                'from': 'MonHoc',
+                'localField': 'mamonhoc',
+                'foreignField': 'mamonhoc',
+                'as': 'MonHoc'
+            }
+        },
+        {'$unwind': '$Nhom',
+         },
+        {
+            '$unwind': '$MonHoc',
+        },
+        {
+            "$match": {
+                "MonHoc.mamonhoc": ma
+            }
+        }
+    ])
+    return render(request, 'home/TableNhomLop.html', {'result': result})
+
+
+def DanhSachSinhVien(request, maNhom):
+
+    ma = maNhom
+
+    ThamGiaNhom = dbname['ThamGiaNhom']
+    SinhVien = dbname['SinhVien']
+    NhomLop = dbname['NhomLop']
+
+    # Kết hợp bảng customers và orders
+    result = ThamGiaNhom.aggregate([
+        {
+            '$lookup':
+            {
+                'from': 'NhomLop',
+                'localField': 'manhomlop',
+                'foreignField': 'manhomlop',
+                'as': 'Nhom'
+            }
+        },
+        {
+            '$lookup':
+            {
+                'from': 'SinhVien',
+                'localField': 'masinhvien',
+                'foreignField': 'masinhvien',
+                'as': 'SV'
+            }
+        },
+        {'$unwind': '$Nhom',
+         },
+        {
+            '$unwind': '$SV',
+        },
+        {
+            "$match": {
+                "Nhom.manhomlop": ma
+            }
+        }
+    ])
+    return render(request, 'home/TableDSSV.html', {'result': result})
+
+
+def QRcode(request, maNhom):
+    ma = maNhom
+    cap = cv.VideoCapture(0)
+    ListMaSV = []
+    while True:
+        ret, frame = cap.read()
+        barcodes = pyzbar.decode(frame)
+        for barcode in barcodes:
+            (x, y, w, h) = barcode.rect
+            cv.rectangle(frame, (x, y), (x + w, y + h), (0, 255, 255), 2)
+            barcodeData = barcode.data.decode("utf-8")
+            text = "{}".format(barcodeData)
+            if text not in ListMaSV:
+                ListMaSV.append(text)
+            cv.putText(frame, text, (x-10, y - 10), cv.FONT_HERSHEY_SIMPLEX,
+                       0.5, (0, 0, 255), 1)
+        cv.imshow('Doc Ma Vach - Ma QR', frame)
+        if cv.waitKey(1) == ord('q'):
+            break
+    cap.release()
+    cv.destroyAllWindows()
+    ThamGiaNhom = dbname['ThamGiaNhom']
+    NhomLop = dbname['NhomLop']
+    for i in ListMaSV:
+        ThamGiaNhom.update_many(
+            {'masinhvien': i, 'manhomlop': ma},
+            {'$set': {'diemdanh': '1'}}
+        )
+    ThamGiaNhom = dbname['ThamGiaNhom']
+    SinhVien = dbname['SinhVien']
+    NhomLop = dbname['NhomLop']
+
+    # Kết hợp bảng customers và orders
+    result = ThamGiaNhom.aggregate([
+        {
+            '$lookup':
+            {
+                'from': 'NhomLop',
+                'localField': 'manhomlop',
+                'foreignField': 'manhomlop',
+                'as': 'Nhom'
+            }
+        },
+        {
+            '$lookup':
+            {
+                'from': 'SinhVien',
+                'localField': 'masinhvien',
+                'foreignField': 'masinhvien',
+                'as': 'SV'
+            }
+        },
+        {'$unwind': '$Nhom',
+         },
+        {
+            '$unwind': '$SV',
+        },
+        {
+            "$match": {
+                "Nhom.manhomlop": ma
+            }
+        }
+    ])
+    print(ListMaSV)
+    return render(request, 'home/TableDSSV.html', {'result': result})
+
+
+def login_view(request):
+    GiangVien = dbname['GiangVien']
+    if request.method == 'POST':
+        username = request.POST.get('username')
+        password = request.POST.get('password')
+        query = {'username': username, 'password': password}
+        tk = GiangVien.find(query, {'magv': 1})
+        tk = list(tk)
+        for i in tk:
+            ma = i['magv']
+        if len(tk) != 0:
+            DkMonHoc = dbname['DKMonHoc']
+            MonHoc = dbname['MonHoc']
+            # Kết hợp bảng customers và orders
+            result = DkMonHoc.aggregate([
+                {
+                    '$lookup':
+                    {
+                        'from': 'GiangVien',
+                        'localField': 'magv',
+                        'foreignField': 'magv',
+                        'as': 'tenGV'
+                    }
+                },
+                {
+                    '$lookup':
+                    {
+                        'from': 'MonHoc',
+                        'localField': 'mamonhoc',
+                        'foreignField': 'mamonhoc',
+                        'as': 'tenMonHoc'
+                    }
+                },
+                {'$unwind': '$tenGV',
+                 },
+                {
+                    '$unwind': '$tenMonHoc',
+                },
+                {
+                    '$match': {
+                        'tenGV.magv': ma
+                    }
+                }
+            ])
+            return render(request, 'home/TableMonHoc.html', {'result': result})
+        else:
+            error_message = 'Tên đăng nhập hoặc mật khẩu không đúng.'
+            print("Bug1")
+    else:
+        error_message = ''
+        print("Bug2")
+    return render(request, 'home/Login.html', {'error_message': error_message})
+
+
+def nhomLop_view(request):
+    return render(request, 'home/nhomLop_view.html')
+
+
+def connect(collection_name):
     client = pymongo.MongoClient(
-        'mongodb+srv://ngtphongg:25251325@cluster0.yrdmc9z.mongodb.net/test')
-    # Define DB Name
-    dbname = client['managediemdanh']
+        'mongodb+srv://Asahi:anhneem2p@cluster0.htoumkm.mongodb.net/?retryWrites=true&w=majority')
+    db = client['table1']
+    return db[collection_name]
 
-    # Define Collection
-    collection = dbname['sinhvien']
 
-    sv = list(collection.find())
+def returnSVList():
+    collection = connect('sinhvien')
+    sv = list(collection.find({}))
+    return sv
 
-    return render(request, 'home/TableSV.html', {'sv': sv})
+
+def TableSV(request):
+    return render(request, "home/TableSV.html", {"sv": returnSVList()})
+
+
+def TableGV(request):
+    return render(request, "home/TableGV.html", {"sv": returnSVList()})
