@@ -2,12 +2,18 @@
 <div class="form">
   <form action="" method="post">
     {% csrf_token %}
-    <p>Nhập thông tin nhóm lớp</p>
-    <div><label class='minw-120' for="name-entry">Tên nhóm lớp: </label><input name="name-entry" id="name-entry" class="name-entry" maxlength="100" required /></div>
+    
     <div><label class='minw-120' for="year-entry">Năm học: </label><input name='year-entry' id='year-entry' class='class-entry' required type="number" min="1900" max="2099" step="1" value="2023" /></div>
     <div>
-      <label class='minw-120' for="semester-select"> Học lỳ: </label
-      ><select name="faculty-select" id="faculty-select">
+      <label class='minw-120' for="group-select"> Môn học: </label>
+      <select name="group-select" id="group-select">
+        {% for monhoc in mh %}
+          <option value="HKI">{{monhoc.tenmonhoc}}</option>
+        {% endfor %}
+      </select>
+    </div>
+    <div>
+      <label class='minw-120' for="semester-select"> Học lỳ: </label><select name="faculty-select" id="faculty-select">
         <option value="HKI">Học kỳ I</option>
         <option value="HKII">Học kỳ III</option>
         <option value="HKP">Học kỳ Phụ</option>

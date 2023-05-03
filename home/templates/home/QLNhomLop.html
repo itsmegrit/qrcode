@@ -7,8 +7,8 @@
         <th class ='maNMH'>Mã NMH</th>
         <th class ='tenMH'>Tên MH</th> 
         <th class ='tenGV'>Tên GV</th> 
-        <th class ='ngayBD'>Ngày bắt đầu</th> 
-        <th class ='ngaykT'>Ngày kết thúc</th>
+        <th class ='hocKy'>Học kỳ</th> 
+        <th class ='namHoc'>Năm Học</th>
         <th class ='thaoTac'>Thao tác</th>
 
     </tr>
@@ -18,8 +18,8 @@
             <th class ='maNMH'>{{ nhom.maNMH }}</th>
             <th class ='tenMH'>{{ nhom.tenMH }}</th> 
             <th class ='tenGV'>{{ nhom.tenGV }}</th>
-            <th class ='ngayBD'>{{ nhom.ngayBD }}</th>
-            <th class ='ngayKT'>{{ nhom.ngayKT }}</th>
+            <th class ='hocKy'>{{ nhom.hocKy }}</th>
+            <th class ='namHoc'>{{ nhom.namHoc }}</th>
             <th class ='thaoTac'><a href="NMH_DSSV/{{nhom.maNMH}}" class="btn btn-primary" role="button" aria-pressed="true"><i class="far fa-eye"> DSSV</i></a></th>
         </tr>
         {% else %}
@@ -27,8 +27,8 @@
             <th class ='maNMH'>{{ nhom.maNMH }}</th>
             <th class ='tenMH'>{{ nhom.tenMH }}</th> 
             <th class ='tenGV'>{{ nhom.tenGV }}</th>
-            <th class ='ngayBD'>{{ nhom.ngayBD }}</th> 
-            <th class ='ngayKT'>{{ nhom.ngayKT }}</th>
+            <th class ='hocKy'>{{ nhom.hocKy }}</th> 
+            <th class ='namHoc'>{{ nhom.namHoc }}</th>
             <th class ='thaoTac'><a href="NMH_DSSV/{{nhom.maNMH}}" class="btn btn-primary" role="button" aria-pressed="true"><i class="far fa-eye"> DSSV</i></a></th>
         </tr>
         {% endif %}

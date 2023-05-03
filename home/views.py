@@ -278,6 +278,12 @@ def returnNMHList_id(NMH):
     return nmh
 
 
+def returnMHList():
+    collection = connectDB('MonHoc')
+    mh = list(collection.find({}))
+    return mh
+
+
 def nhomLop_view(request):
     return render(request, 'home/QLNhomLop.html', {"nmh": returnNMHList()})
 
@@ -318,7 +324,7 @@ def QLMonHoc(request):
 
 
 def themNhomLop(request):
-    return render(request, 'home/AddNhomLop.html')
+    return render(request, 'home/AddNhomLop.html', {"mh": returnMHList()})
 
 
 def NMH_DSSV(request, NMH):
