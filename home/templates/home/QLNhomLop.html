@@ -20,7 +20,7 @@
             <th class ='tenGV'>{{ nhom.tenGV }}</th>
             <th class ='ngayBD'>{{ nhom.ngayBD }}</th>
             <th class ='ngayKT'>{{ nhom.ngayKT }}</th>
-            <th class ='thaoTac'><a href="QLNhomLop" class="btn btn-primary" role="button" aria-pressed="true"><i class="far fa-eye"> DSSV</i></a></th>
+            <th class ='thaoTac'><a href="NMH_DSSV/{{nhom.maNMH}}" class="btn btn-primary" role="button" aria-pressed="true"><i class="far fa-eye"> DSSV</i></a></th>
         </tr>
         {% else %}
         <tr class = 'table-row-2'>
@@ -29,7 +29,7 @@
             <th class ='tenGV'>{{ nhom.tenGV }}</th>
             <th class ='ngayBD'>{{ nhom.ngayBD }}</th> 
             <th class ='ngayKT'>{{ nhom.ngayKT }}</th>
-            <th class ='thaoTac'><a href="QLNhomLop" class="btn btn-primary" role="button" aria-pressed="true"><i class="far fa-eye"> DSSV</i></a></th>
+            <th class ='thaoTac'><a href="NMH_DSSV/{{nhom.maNMH}}" class="btn btn-primary" role="button" aria-pressed="true"><i class="far fa-eye"> DSSV</i></a></th>
         </tr>
         {% endif %}
     {% endfor %}

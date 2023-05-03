@@ -15,4 +15,6 @@ urlpatterns = [
     path('home/nhomLop/QLNhomLop', views.QLNhomLop, name='QLNhomLop'),
     path('home/nhomLop/AddNhomLop',
          views.themNhomLop, name='themNhomLop'),
+    path('home/nhomLop/NMH_DSSV/<slug:NMH>',
+         views.NMH_DSSV, name='NMH_DSSV'),
 ]

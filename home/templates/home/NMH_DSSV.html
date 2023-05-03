@@ -1,0 +1,27 @@
+{% extends 'home/nhomLop_view.html' %}
+{% block nhomLopContent %}
+Nhóm MH: {{nmh.maNMH}}</br>
+Môn: {{nmh.tenMH}} - Giảng viên: {{nmh.tenGV}}
+<div class = 'table'>
+  <table>
+    <tr class = 'table-header'>
+        <th class ='msv'>Mã sinh viên</th>
+        <th class ='hoten'>Tên sinh viên</th> 
+    </tr>
+    {% for sinhvien in nmh.danhSachSV %}
+        {% if forloop.counter|divisibleby:2 %}     
+        <tr class = 'table-row-1'>
+            <th class ='msv'>{{ sinhvien.MSSV }}</th>
+            <th class ='hoten'>{{ sinhvien.tenSV }}</th> 
+        </tr>
+        {% else %}
+        <tr class = 'table-row-2'>
+            <th class ='msv'>{{ sinhvien.MSSV }}</th>
+            <th class ='hoten'>{{ sinhvien.tenSV }}</th> 
+        </tr>
+        {% endif %}
+    {% endfor %}
+    <p>{{ msv.mon }}</p>
+    </table>
+</div>
+{% endblock nhomLopContent %}

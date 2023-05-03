@@ -271,6 +271,13 @@ def returnNMHList():
     return nmh
 
 
+def returnNMHList_id(NMH):
+    collection = connectDB('NhomMH')
+    nmh = collection.find_one({'maNMH': 1})
+    print(nmh)
+    return nmh
+
+
 def nhomLop_view(request):
     return render(request, 'home/QLNhomLop.html', {"nmh": returnNMHList()})
 
@@ -280,6 +287,12 @@ def connect(collection_name):
         'mongodb+srv://Asahi:anhneem2p@cluster0.htoumkm.mongodb.net/?retryWrites=true&w=majority')
     db = client['table1']
     return db[collection_name]
+
+
+def returnSVList():
+    collection = connect('sinhvien')
+    sv = list(collection.find({}))
+    return sv
 
 
 def returnSVList():
@@ -306,3 +319,8 @@ def QLMonHoc(request):
 
 def themNhomLop(request):
     return render(request, 'home/AddNhomLop.html')
+
+
+def NMH_DSSV(request, NMH):
+    nmh = returnNMHList_id(NMH)
+    return render(request, 'home/NMH_DSSV.html', {"nmh": nmh})
