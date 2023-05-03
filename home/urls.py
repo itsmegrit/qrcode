@@ -12,5 +12,7 @@ urlpatterns = [
     path('home/TableSV/', views.TableSV, name='TableSV'),
     path('home/TableGV', views.TableGV, name='TableGV'),
     path('home/nhomLop/QLMonHoc', views.QLMonHoc, name='QLMonHoc'),
-    path('home/nhomLop/QLNhomLop', views.QLNhomLop, name='QLNhomLop')
+    path('home/nhomLop/QLNhomLop', views.QLNhomLop, name='QLNhomLop'),
+    path('home/nhomLop/AddNhomLop',
+         views.themNhomLop, name='themNhomLop'),
 ]

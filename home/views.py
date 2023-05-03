@@ -258,8 +258,21 @@ def login_view(request):
     return render(request, 'home/Login.html', {'error_message': error_message})
 
 
+def connectDB(collection_name):
+    client = pymongo.MongoClient(
+        'mongodb+srv://ngtphongg:25251325@cluster0.yrdmc9z.mongodb.net/test')
+    db = client['QLSV']
+    return db[collection_name]
+
+
+def returnNMHList():
+    collection = connectDB('NhomMH')
+    nmh = list(collection.find({}))
+    return nmh
+
+
 def nhomLop_view(request):
-    return render(request, 'home/nhomLop_view.html')
+    return render(request, 'home/QLNhomLop.html', {"nmh": returnNMHList()})
 
 
 def connect(collection_name):
@@ -284,8 +297,12 @@ def TableGV(request):
 
 
 def QLNhomLop(request):
-    return render(request, "home/QLNhomLop.html", {"sv": returnSVList()})
+    return render(request, 'home/QLNhomLop.html', {"nmh": returnNMHList()})
 
 
 def QLMonHoc(request):
     return render(request, "home/QLMonHoc.html", {"sv": returnSVList()})
+
+
+def themNhomLop(request):
+    return render(request, 'home/AddNhomLop.html')

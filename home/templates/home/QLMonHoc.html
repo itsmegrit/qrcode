@@ -1,5 +1,6 @@
 {% extends 'home/nhomLop_view.html' %}
 {% block nhomLopContent %}
+Quản lý môn hoc
 <div class = 'table'>
   <table>
     <tr class = 'table-header'>
@@ -25,7 +26,7 @@
         </tr>
         {% endif %}
     {% endfor %}
-    <p>{{ msv.mon }}</p>
+    {% comment %} <p>{{ msv.mon }}</p> {% endcomment %}
     </table>
 </div>
 {% endblock nhomLopContent %}

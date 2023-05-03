@@ -1,15 +1,14 @@
 {% extends 'home/QuanLySinhVien.html' %} {% block content %}
 <h1>Quản lý nhóm lớp theo học kỳ</h1>
 <div class="container">
-  <div class="row">
-    <div class="col-sm-6">
+  <div class="row ">
+    <div class="col-sm-6 pl-0">
     <a href="QLMonHoc" class="btn btn-primary btn-lg active" role="button" aria-pressed="true">QL môn học</a>
     </div>
-    <div class="col-sm-6">
-    <a href="QLNhomLop" class="btn btn-primary btn-lg active" role="button" aria-pressed="true">QL nhóm lớp</a>
+    <div class="col-sm-6 pl-0">
     </div>
   </div>
-  <div class="row">
+  <div class="row mt-16">
   {% block nhomLopContent %}
   {% endblock nhomLopContent %}
   </div>

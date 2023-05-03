@@ -1,32 +1,39 @@
 {% extends 'home/nhomLop_view.html' %}
 {% block nhomLopContent %}
-NHOMLOP
+<a href="AddNhomLop" class=" btn btn-info btn-sm" role="button" aria-pressed="true">Thêm nhóm lớp</a>
 <div class = 'table'>
   <table>
     <tr class = 'table-header'>
-        <th class ='msv'>Mã sinh viên</th>
-        <th class ='hoten'>Tên sinh viên</th> 
-        <th class ='khoa'>Khoa</th> 
-        <th class ='qr'>Mã QR</th>    
+        <th class ='maNMH'>Mã NMH</th>
+        <th class ='tenMH'>Tên MH</th> 
+        <th class ='tenGV'>Tên GV</th> 
+        <th class ='ngayBD'>Ngày bắt đầu</th> 
+        <th class ='ngaykT'>Ngày kết thúc</th>
+        <th class ='thaoTac'>Thao tác</th>
+
     </tr>
-    {% for sinhvien in sv %}
+    {% for nhom in nmh %}
         {% if forloop.counter|divisibleby:2 %}     
         <tr class = 'table-row-1'>
-            <th class ='msv'>{{ sinhvien.masinhvien }}</th>
-            <th class ='hoten'>{{ sinhvien.tensinhvien }}</th> 
-            <th class ='khoa'>{{ sinhvien.khoa }}</th> 
-            <th class ='qr'>Xem</th>  
+            <th class ='maNMH'>{{ nhom.maNMH }}</th>
+            <th class ='tenMH'>{{ nhom.tenMH }}</th> 
+            <th class ='tenGV'>{{ nhom.tenGV }}</th>
+            <th class ='ngayBD'>{{ nhom.ngayBD }}</th>
+            <th class ='ngayKT'>{{ nhom.ngayKT }}</th>
+            <th class ='thaoTac'><a href="QLNhomLop" class="btn btn-primary" role="button" aria-pressed="true"><i class="far fa-eye"> DSSV</i></a></th>
         </tr>
         {% else %}
         <tr class = 'table-row-2'>
-            <th class ='msv'>{{ sinhvien.masinhvien }}</th>
-            <th class ='hoten'>{{ sinhvien.tensinhvien }}</th> 
-            <th class ='khoa'>{{ sinhvien.khoa }}</th> 
-            <th class ='qr'>Xem</th>  
+            <th class ='maNMH'>{{ nhom.maNMH }}</th>
+            <th class ='tenMH'>{{ nhom.tenMH }}</th> 
+            <th class ='tenGV'>{{ nhom.tenGV }}</th>
+            <th class ='ngayBD'>{{ nhom.ngayBD }}</th> 
+            <th class ='ngayKT'>{{ nhom.ngayKT }}</th>
+            <th class ='thaoTac'><a href="QLNhomLop" class="btn btn-primary" role="button" aria-pressed="true"><i class="far fa-eye"> DSSV</i></a></th>
         </tr>
         {% endif %}
     {% endfor %}
-    <p>{{ msv.mon }}</p>
+    {% comment %} <p>{{ msv.mon }}</p> {% endcomment %}
     </table>
 </div>
 {% endblock nhomLopContent %}
