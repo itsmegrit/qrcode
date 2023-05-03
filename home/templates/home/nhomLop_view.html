@@ -2,9 +2,16 @@
 <h1>Quản lý nhóm lớp theo học kỳ</h1>
 <div class="container">
   <div class="row">
-    <div class="col-sm">One of three columns</div>
-    <div class="col-sm">One of three columns</div>
-    <div class="col-sm">One of three columns</div>
+    <div class="col-sm-6">
+    <a href="QLMonHoc" class="btn btn-primary btn-lg active" role="button" aria-pressed="true">QL môn học</a>
+    </div>
+    <div class="col-sm-6">
+    <a href="QLNhomLop" class="btn btn-primary btn-lg active" role="button" aria-pressed="true">QL nhóm lớp</a>
+    </div>
+  </div>
+  <div class="row">
+  {% block nhomLopContent %}
+  {% endblock nhomLopContent %}
   </div>
 </div>
 {% endblock content %}

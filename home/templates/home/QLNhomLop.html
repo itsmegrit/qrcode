@@ -1,0 +1,32 @@
+{% extends 'home/nhomLop_view.html' %}
+{% block nhomLopContent %}
+NHOMLOP
+<div class = 'table'>
+  <table>
+    <tr class = 'table-header'>
+        <th class ='msv'>Mã sinh viên</th>
+        <th class ='hoten'>Tên sinh viên</th> 
+        <th class ='khoa'>Khoa</th> 
+        <th class ='qr'>Mã QR</th>    
+    </tr>
+    {% for sinhvien in sv %}
+        {% if forloop.counter|divisibleby:2 %}     
+        <tr class = 'table-row-1'>
+            <th class ='msv'>{{ sinhvien.masinhvien }}</th>
+            <th class ='hoten'>{{ sinhvien.tensinhvien }}</th> 
+            <th class ='khoa'>{{ sinhvien.khoa }}</th> 
+            <th class ='qr'>Xem</th>  
+        </tr>
+        {% else %}
+        <tr class = 'table-row-2'>
+            <th class ='msv'>{{ sinhvien.masinhvien }}</th>
+            <th class ='hoten'>{{ sinhvien.tensinhvien }}</th> 
+            <th class ='khoa'>{{ sinhvien.khoa }}</th> 
+            <th class ='qr'>Xem</th>  
+        </tr>
+        {% endif %}
+    {% endfor %}
+    <p>{{ msv.mon }}</p>
+    </table>
+</div>
+{% endblock nhomLopContent %}

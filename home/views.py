@@ -281,3 +281,11 @@ def TableSV(request):
 
 def TableGV(request):
     return render(request, "home/TableGV.html", {"sv": returnSVList()})
+
+
+def QLNhomLop(request):
+    return render(request, "home/QLNhomLop.html", {"sv": returnSVList()})
+
+
+def QLMonHoc(request):
+    return render(request, "home/QLMonHoc.html", {"sv": returnSVList()})
