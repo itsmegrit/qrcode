@@ -6,6 +6,7 @@ import pymongo
 from django.http import JsonResponse
 from pymongo import MongoClient
 import cv2 as cv
+import traceback
 from pyzbar import pyzbar
 
 # Create your views here.
@@ -274,7 +275,6 @@ def returnNMHList():
 def returnNMHList_id(NMH):
     collection = connectDB('NhomMH')
     nmh = collection.find_one({'maNMH': 1})
-    print(nmh)
     return nmh
 
 
@@ -325,17 +325,91 @@ def QLMonHoc(request):
 
 def returnNewMHH():
     collection = connectDB('NhomMH')
-    return collection.find({}).sort({"maNMH": -1}).limit(1).first() + 1
+    return collection.find({}).sort({"maNMH": -1}).limit(1).first()
 
 
 def addNhomLop(tenMH, tenGV, hocKy, namHoc):
     collection = connectDB('NhomMH')
+    diemDanhcollection = connectDB('diemDanh')
     try:
+        maNMH = 2
         collection.insert_one(
-            {"tenMH": tenMH, "tenGV": tenGV, "danhSachSV": [{"MSSV": "3120410396", "tenSV": "Nguyễn Thanh Phong"}, {"MSSV": "3120410542", "tenSV": "Trần Minh Toàn"}], "hocKy": hocKy, "namHoc": namHoc, "maNMH": returnNewMHH()})
+            {"tenMH": tenMH, "tenGV": tenGV, "danhSachSV": [{"MSSV": "3120410396", "tenSV": "Nguyễn Thanh Phong"}, {"MSSV": "3120410542", "tenSV": "Trần Minh Toàn"}], "hocKy": hocKy, "namHoc": namHoc, "maNMH": maNMH})
+        nhomMH = collection.find_one({"maNMH": maNMH})
+        dssv = nhomMH['danhSachSV']
+
+        for sinh_vien in dssv:
+            sinh_vien['diemDanh'] = False
+
+        diemDanhcollection.insert_one({
+            "maNMH": nhomMH['_id'],
+            "danhSachDiemDanh": [
+                {
+                    "danhSachSV": dssv,
+                    "buoi": {"$numberInt": "1"}
+                },
+                {
+                    "danhSachSV": dssv,
+                    "buoi": {"$numberInt": "2"}
+                },
+                {
+                    "danhSachSV": dssv,
+                    "buoi": {"$numberInt": "3"}
+                },
+                {
+                    "danhSachSV": dssv,
+                    "buoi": {"$numberInt": "4"}
+                },
+                {
+                    "danhSachSV": dssv,
+                    "buoi": {"$numberInt": "5"}
+                },
+                {
+                    "danhSachSV": dssv,
+                    "buoi": {"$numberInt": "6"}
+                },
+                {
+                    "danhSachSV": dssv,
+                    "buoi": {"$numberInt": "7"}
+                },
+                {
+                    "danhSachSV": dssv,
+                    "buoi": {"$numberInt": "8"}
+                },
+                {
+                    "danhSachSV": dssv,
+                    "buoi": {"$numberInt": "9"}
+                },
+                {
+                    "danhSachSV": dssv,
+                    "buoi": {"$numberInt": "10"}
+                },
+                {
+                    "danhSachSV": dssv,
+                    "buoi": {"$numberInt": "11"}
+                },
+                {
+                    "danhSachSV": dssv,
+                    "buoi": {"$numberInt": "12"}
+                },
+                {
+                    "danhSachSV": dssv,
+                    "buoi": {"$numberInt": "13"}
+                },
+                {
+                    "danhSachSV": dssv,
+                    "buoi": {"$numberInt": "14"}
+                },
+                {
+                    "danhSachSV": dssv,
+                    "buoi": {"$numberInt": "15"}
+                }
+            ]
+        }
+        )
         return True
-    except:
-        print("Bug 1")
+    except Exception:
+        traceback.print_exc()
         return False
 
 

@@ -1,39 +1,40 @@
-{% extends 'home/nhomLop_view.html' %}
-{% block nhomLopContent %}
-<a href="AddNhomLop" class=" btn btn-info btn-sm" role="button" aria-pressed="true">Thêm nhóm lớp</a>
-<div class = 'table'>
+{% extends 'home/nhomLop_view.html' %} {% block nhomLopContent %}
+<a href="/home/nhomLop/QLNhomLop/AddNhomLop" class="btn btn-info btn-sm" role="button" aria-pressed="true">Thêm nhóm lớp</a>
+<div class="table">
   <table>
-    <tr class = 'table-header'>
-        <th class ='maNMH'>Mã NMH</th>
-        <th class ='tenMH'>Tên MH</th> 
-        <th class ='tenGV'>Tên GV</th> 
-        <th class ='hocKy'>Học kỳ</th> 
-        <th class ='namHoc'>Năm Học</th>
-        <th class ='thaoTac'>Thao tác</th>
-
+    <tr class="table-header">
+      <th class="maNMH">Mã NMH</th>
+      <th class="tenMH">Tên MH</th>
+      <th class="tenGV">Tên GV</th>
+      <th class="hocKy">Học kỳ</th>
+      <th class="namHoc">Năm Học</th>
+      <th class="thaoTac">Thao tác</th>
     </tr>
-    {% for nhom in nmh %}
-        {% if forloop.counter|divisibleby:2 %}     
-        <tr class = 'table-row-1'>
-            <th class ='maNMH'>{{ nhom.maNMH }}</th>
-            <th class ='tenMH'>{{ nhom.tenMH }}</th> 
-            <th class ='tenGV'>{{ nhom.tenGV }}</th>
-            <th class ='hocKy'>{{ nhom.hocKy }}</th>
-            <th class ='namHoc'>{{ nhom.namHoc }}</th>
-            <th class ='thaoTac'><a href="NMH_DSSV/{{nhom.maNMH}}" class="btn btn-primary" role="button" aria-pressed="true"><i class="far fa-eye"> DSSV</i></a></th>
-        </tr>
-        {% else %}
-        <tr class = 'table-row-2'>
-            <th class ='maNMH'>{{ nhom.maNMH }}</th>
-            <th class ='tenMH'>{{ nhom.tenMH }}</th> 
-            <th class ='tenGV'>{{ nhom.tenGV }}</th>
-            <th class ='hocKy'>{{ nhom.hocKy }}</th> 
-            <th class ='namHoc'>{{ nhom.namHoc }}</th>
-            <th class ='thaoTac'><a href="NMH_DSSV/{{nhom.maNMH}}" class="btn btn-primary" role="button" aria-pressed="true"><i class="far fa-eye"> DSSV</i></a></th>
-        </tr>
-        {% endif %}
-    {% endfor %}
-    {% comment %} <p>{{ msv.mon }}</p> {% endcomment %}
-    </table>
+    {% for nhom in nmh %} {% if forloop.counter|divisibleby:2 %}
+    <tr class="table-row-1">
+      <th class="maNMH">{{ nhom.maNMH }}</th>
+      <th class="tenMH">{{ nhom.tenMH }}</th>
+      <th class="tenGV">{{ nhom.tenGV }}</th>
+      <th class="hocKy">{{ nhom.hocKy }}</th>
+      <th class="namHoc">{{ nhom.namHoc }}</th>
+      <th class="thaoTac">
+        <a href="NMH_DSSV/{{nhom.maNMH}}" class="btn btn-primary" role="button" aria-pressed="true"><i class="far fa-eye"> DSSV</i></a>
+      </th>
+    </tr>
+    {% else %}
+    <tr class="table-row-2">
+      <th class="maNMH">{{ nhom.maNMH }}</th>
+      <th class="tenMH">{{ nhom.tenMH }}</th>
+      <th class="tenGV">{{ nhom.tenGV }}</th>
+      <th class="hocKy">{{ nhom.hocKy }}</th>
+      <th class="namHoc">{{ nhom.namHoc }}</th>
+      <th class="thaoTac">
+        <a href="NMH_DSSV/{{nhom.maNMH}}" class="btn btn-primary" role="button" aria-pressed="true"><i class="far fa-eye"> DSSV</i></a>
+      </th>
+    </tr>
+    {% endif %} {% endfor %} {% comment %}
+    <p>{{ msv.mon }}</p>
+    {% endcomment %}
+  </table>
 </div>
 {% endblock nhomLopContent %}

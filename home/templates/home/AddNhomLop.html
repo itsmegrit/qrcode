@@ -1,26 +1,27 @@
 {% extends 'home/nhomLop_view.html' %} {% block nhomLopContent %}
 <div class="form">
-  <form action="" method="post">
+  <form action="/home/nhomLop/QLNhomLop/AddNhomLop/" method="post">
     {% csrf_token %}
-    <div><label class='minw-120' for="year-entry">Năm học: </label><input name='year-entry' id='year-entry' class='class-entry' required type="number" min="1900" max="2099" step="1" value="2023" /></div>
+    <div><label class="minw-120" for="year-entry">Năm học: </label><input name="year-entry" id="year-entry" class="class-entry" required type="number" min="1900" max="2099" step="1" value="2023" /></div>
     <div>
-      <label class='minw-120' for="subject-select"> Môn học: </label>
+      <label class="minw-120" for="subject-select"> Môn học: </label>
       <select name="subject-select" id="subject-select">
         {% for monhoc in mh %}
-          <option value="monhoc.tenmonhoc">{{monhoc.tenmonhoc}}</option>
+        <option value="{{monhoc.tenmonhoc}}">{{monhoc.tenmonhoc}}</option>
         {% endfor %}
       </select>
     </div>
     <div>
-      <label class='minw-120' for="teacher-select"> Giảng viên: </label>
+      <label class="minw-120" for="teacher-select"> Giảng viên: </label>
       <select name="teacher-select" id="teacher-select">
         {% for giangVien in gv %}
-          <option value="giangVien.tengv">{{giangVien.tengv}}</option>
+        <option value="{{giangVien.tengv}}">{{giangVien.tengv}}</option>
         {% endfor %}
       </select>
     </div>
     <div>
-      <label class='minw-120' for="semester-select"> Học lỳ: </label><select name="faculty-select" id="faculty-select">
+      <label class="minw-120" for="semester-select"> Học lỳ: </label
+      ><select name="semester-select" id="semester-select">
         <option value="Học kỳ I">Học kỳ I</option>
         <option value="Học kỳ III">Học kỳ III</option>
         <option value="Học kỳ Phụ">Học kỳ Phụ</option>
